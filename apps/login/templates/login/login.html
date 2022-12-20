@@ -1,0 +1,107 @@
+{% extends 'base_login.html' %}
+{% from 'macros/render_form.html' import render_errors %}
+{% block content %}
+    <div class="login-box">
+        {% if get_flashed_messages(with_categories=True) %}
+            {% with messages=get_flashed_messages(with_categories=True) %}
+                <div class="alert alert-info alert-dismissible register-box">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    {% for category,message in messages %}
+                        <h5><i class="icon fas fa-ban"></i> {{ message }}</h5>
+                    {% endfor %}
+                </div>
+
+            {% endwith %}
+
+        {% endif %}
+        <div class="login-logo">
+            <a href=""><b>App</b>1</a>
+        </div>
+        <div class="card">
+            <div class="card-body login-card-body">
+                <p class="login-box-msg">Inicie sesión con sus credenciales</p>
+                <form action="." method="post" novalidate>
+                    {{ form.hidden_tag() }}
+                    <div class="input-group mb-3">
+                        {{ form.username }}
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                        {{ render_errors(form.username) }}
+                    </div>
+
+                    <div class="input-group mb-3">
+                        {{ form.password }}
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                        {{ render_errors(form.password) }}
+                    </div>
+                    {#                    <hr>#}
+                    <div class="col-8">
+                        <div class="icheck-primary">
+                            {{ form.remember_me }}
+                            {{ form.remember_me.label }}
+                        </div>
+                    </div>
+                    {#                    <hr>#}
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <button type="submit" class="btn btn-primary btn-block">
+                                <i class="fas fa-sign-in-alt"></i> Iniciar sesión
+                            </button>
+                        </div>
+                    </div>
+                    <p style="font-size: 15px; color: #0d3349" class="text-center mt-2"><a href="#">Olvisaste tu
+                        contrasenia</a></p>
+
+                    <p class="mb-0">
+                        <a href="{{ url_for('login.registros') }}" class="text-center">Registrarme</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        {#let form = $("#form")[0]#}
+        {##}
+        {#function removeClass(form) {#}
+        {#    let array = Array.from(form)#}
+        {#    $.each(array, function (key, value) {#}
+        {#        $(value).removeClass('is-invalid')#}
+        {#        $(value).removeClass('is-valid')#}
+        {#    })#}
+        {##}
+        {#{% if context %}#}
+        {#    removeClass(form)#}
+        {#    let valor = ''#}
+        {#    {% for item in context %}#}
+        {#        {% if item %}#}
+        {#            {% for item,value in item.items() %}#}
+        {#                valor = "{{ value.attr.class|safe }}"#}
+        {#                $("#{{ item }}").addClass(valor)#}
+        {#            {% endfor %}#}
+        {##}
+        {#        {% endif %}#}
+        {##}
+        {#    {% endfor %}#}
+        {##}
+
+
+        {#    {% endif %}#}
+        {% if form.errors %}
+            {% for field in form.errors %}
+                $("#{{ field }}").addClass('is-invalid')
+            {% endfor %}
+        {% endif %}
+
+    </script>
+
+{% endblock %}

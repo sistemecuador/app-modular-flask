@@ -1,0 +1,51 @@
+{% extends 'list_base.html' %}
+
+{% block columns %}
+    <tr>
+        <th>Opciones</th>
+        <th>Nombre producto</th>
+        <th>Descripción</th>
+        <th>Codigo producto</th>
+        <th>Cantidad</th>
+        <th>Activo</th>
+        <th>Estado</th>
+        <th>Imagen</th>
+        <th>Categoria</th>
+    </tr>
+{% endblock %}
+
+{% block rows %}
+
+    {% for producto in context.productos %}
+        <tr>
+            <td>
+                <a href="{{ url_for('productos.edit_products',pk=producto.id) }}" class="btn btn-sm btn-default"><i
+                        style="color: #334a4b" class="fas fa-edit"></i></a>
+                <a href="{{ url_for('productos.delete_products',pk=producto.id) }}" class="btn btn-sm btn-default"><i
+                        style="color: red" class="fas fa-trash-alt"></i></a>
+            </td>
+            <td>{{ producto.name_producto }}</td>
+            <td>{{ producto.descripcion }}</td>
+            <td>{{ producto.codigo_producto }}</td>
+            <td>{{ producto.cantidad }}</td>
+            <td>{{ producto.activo }}</td>
+            <td>{{ producto.estados_id }}</td>
+            <td>
+                <div class="img-fluid mb-3">
+                    <a type="button">
+                        <img width="50px" height="50px"
+                             src="{{ url_for('inventario.uploads',
+                                 sub_directorio='productos',
+                                 filename=producto.image) }}" alt="image">
+                    </a>
+                </div>
+            </td>
+            <td>{{ producto.categoria_id }}</td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+
+{% block card_footer %}
+    <a href="{{ add_productos }}" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Agregar</a>
+    <a href="" class="btn btn-success"><i class="fas fa-sync-alt"></i> Actualizar</a>
+{% endblock %}

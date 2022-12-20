@@ -1,0 +1,48 @@
+{% extends 'list_base.html' %}
+
+{% block columns %}
+    <tr>
+        <th>Opciones</th>
+        <th>F. Salida</th>
+        <th>Estado Salida</th>
+        <th>Estado</th>
+        <th>Observacion</th>
+        <th>Responsable</th>
+        <th>Productos entregados</th>
+    </tr>
+{% endblock %}
+
+{% block rows %}
+
+    {% for tt in context.tt_salidas %}
+        <tr>
+            <td>
+                <a href="{{ url_for('tickets.edit_salida_tt',pk=tt.id) }}" class="btn btn-sm btn-default"><i
+                        style="color: #334a4b" class="fas fa-edit"></i></a>
+                <a href="{{ url_for('tickets.delete_salida_tt',pk=tt.id) }}"
+                   class="btn btn-sm btn-default"><i
+                        style="color: red" class="fas fa-trash-alt"></i></a>
+                <a href="{{ url_for('tickets.add_cierres_tt',pk=tt.id) }}"
+                   class="btn btn-sm btn-default"><i
+                        style="color: #447d80" class="fas fa-ticket-alt"></i></a>
+            </td>
+            <td>{{ tt.fecha_salida }}</td>
+            <td>{{ tt.obs_salida }}</td>
+            <td>{{ tt.estado_salida }}</td>
+            <td>{{ tt.estado }}</td>
+            <td>{{ tt.personal_tickets_salida.identificador }}</td>
+            {#            <td>{{ tt.tt_productos }}</td>#}
+            <td>
+                {% for tt_producto in tt.tt_productos %}
+                    <span class="badge badge-primary">{{ tt_producto.name_producto }}</span>
+                {% endfor %}
+            </td>
+
+        </tr>
+    {% endfor %}
+{% endblock %}
+
+{% block card_footer %}
+    <a href="{{ add_categorias }}" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Agregar</a>
+    <a href="" class="btn btn-success"><i class="fas fa-sync-alt"></i> Actualizar</a>
+{% endblock %}

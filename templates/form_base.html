@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+{% from 'macros/render_form.html' import render_form %}
+{% block content_body %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">{{ context.title_card }}</h3>
+                </div>
+                {% block form_content %}
+
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

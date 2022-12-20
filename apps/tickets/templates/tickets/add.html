@@ -1,0 +1,29 @@
+{% extends 'form_base.html' %}
+{% from 'macros/render_form.html' import render_form %}
+{% from 'macros/render_form.html' import render_field %}
+{% block form_content %}
+
+    {{ render_form(context.form) }}
+
+{% endblock %}
+{% block javascript %}
+
+
+    {% if context.form.list_productos %}
+        <script>
+            let options = Array.from($("select[name='tt_productos'] option"))
+            let dato;
+            $.each(options, function (key, value) {
+                let id = $(value).val()
+                {% for foo in context.form.list_productos %}
+                    dato = {{foo[0]}}
+                    if (dato === Number(id)) {
+                        console.log("dato", dato)
+                        value.selected = 'selected'
+                    }
+                {% endfor %}
+
+            })
+        </script>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends 'base_login.html' %}
+
+{% from 'macros/render_form.html' import render_form %}
+{% from 'macros/render_form.html' import render_errors %}
+{% block body %}
+    <body class="register-page">
+    {% if get_flashed_messages(with_categories=True) %}
+        {% with messages=get_flashed_messages(with_categories=True) %}
+            <div class="alert alert-danger alert-dismissible register-box">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                {% for category,message in messages %}
+                    <h5><i class="icon fas fa-ban"></i> {{ message }}</h5>
+                {% endfor %}
+            </div>
+
+        {% endwith %}
+
+    {% endif %}
+    <div class="register-box">
+        <div class="register-logo">
+            <a href=""><b>App</b>1</a>
+        </div>
+        <div class="card">
+            <div class="card-body register-card-body">
+                <p class="login-box-msg">Registrate</p>
+                <form action="" method="post" novalidate>
+                    {{ form.hidden_tag() }}
+                    <div class="input-group mb-3">
+                        {{ form.first_name }}
+
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
+                        </div>
+                        {{ render_errors(form.first_name) }}
+                    </div>
+                    <div class="input-group mb-3">
+                        {{ form.last_name }}
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
+                        </div>
+                        {{ render_errors(form.last_name) }}
+
+                    </div>
+                    <div class="input-group mb-3">
+                        {{ form.email }}
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                        {{ render_errors(form.email) }}
+                    </div>
+                    <div class="input-group mb-3">
+                        {{ form.username }}
+
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                        {{ render_errors(form.username) }}
+                    </div>
+                    <div class="input-group mb-3">
+                        {{ form.password }}
+
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                        {{ render_errors(form.password) }}
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            {{ form.register }}
+                        </div>
+
+                    </div>
+                </form>
+                <br>
+                <div class="text-center">
+                    <a href="{{ url_for("login.login") }}" class="text-center">Regresar a login</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script>
+        {% if form.errors %}
+            {% for field in form.errors %}
+                $("#{{ field }}").addClass('is-invalid')
+            {% endfor %}
+        {% endif %}
+    </script>
+
+    </body>
+
+{% endblock %}

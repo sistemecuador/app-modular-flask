@@ -1,0 +1,54 @@
+{% macro render_errors(field) %}
+    {% if field.errors %}
+        <span class="error invalid-feedback">
+            {% for error in field.errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </span>
+    {% endif %}
+{% endmacro %}
+{% macro render_field(field) %}
+    {% if field.widget.input_type == 'hidden' %}
+        {{ field(**kwargs)|safe }}
+    {% else %}
+        {% if field.widget.input_type != 'submit' %}
+            {% if field.widget.input_type != 'checkbox' %}
+                <div class="form-group">
+                    {{ field.label }}
+                    {{ field(**kwargs)|safe }}
+                    {{ render_errors(field) }}
+                </div>
+            {% else %}
+                <div class="icheck-primary">
+                    {{ field(**kwargs)|safe }}
+                    {{ field.label }}
+                    {{ render_errors(field) }}
+                </div>
+            {% endif %}
+
+
+        {% endif %}
+
+    {% endif %}
+
+{% endmacro %}
+{% macro render_form(form,method='POST',action='', id='form',novalidate=True,multipart=True) %}
+    <form action="{{ action }}" method="{{ method }}" id="{{ id }}" {% if novalidate %}novalidate{% endif %}
+          {% if multipart %}enctype="multipart/form-data"{% endif %}>
+        <div class="card-body">
+            {% for field in form %}
+                {{ render_field(field) }}
+            {% endfor %}
+        </div>
+        <div class="card-footer">
+            <button class="btn btn-success"><i class="fas fa-save"></i> Guardar</button>
+        </div>
+    </form>
+    <script>
+        {% if form.errors %}
+            {% for field in form.errors %}
+                $("#{{ field }}").addClass('is-invalid')
+            {% endfor %}
+        {% endif %}
+    </script>
+{% endmacro %}

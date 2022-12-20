@@ -1,0 +1,5 @@
+{% extends 'form_base.html' %}
+{% from 'macros/render_form.html' import render_form %}
+{% block form_content %}
+    {{ render_form(context.form) }}
+{% endblock %}

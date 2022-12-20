@@ -1,0 +1,266 @@
+{% extends 'form_base.html' %}
+{% from 'macros/render_form.html' import render_form %}
+{% from 'macros/render_form.html' import render_field %}
+{% from 'macros/render_form.html' import render_errors %}
+{% block form_content %}
+    {#    {{ render_form(context.form) }}#}
+    <form action="" method="POST" novalidate>
+        {{ context.form.hidden_tag() }}
+        <div class="card-body">
+            {{ render_field(context.form.fecha_cierre) }}
+            {{ render_errors(context.form.fecha_cierre) }}
+            {{ render_field(context.form.id_tickets_salida) }}
+            {{ render_errors(context.form.id_tickets_salida) }}
+            {{ render_field(context.form.obs_cierre) }}
+            {{ render_errors(context.form.obs_cierre) }}
+            <div class="form-group">
+                {{ context.form.tt_productos.label }}
+                <a type="button" class="text-select-all ml-2">Seleccionar
+                    todo <i class="fas fa-arrow-circle-down icon-select-all"></i></a><small
+                    id="small-select-all"></small>
+                {{ context.form.tt_productos }}
+                <small class="form-text text-muted"></small>
+                {{ render_errors(context.form.tt_productos) }}
+            </div>
+            <div class="col-md-12 mb-3">
+                <button style="color: #15a4fa" type="button"
+                        class="btn btn-default mr-2 ml-5 btn-agregar"><i
+                        class="fas fa-arrow-down"></i></button>
+                <button style="color: red" type="button"
+                        class="btn btn-default mr-2 ml-5 btn-eliminar"><i
+                        class="fas fa-arrow-up"></i></button>
+            </div>
+            <div class="form-group">
+                {{ context.form.tt_productos_devueltos.label }}
+
+                <a type="button" class="text-diselect-all ml-2">Eliminar
+                    todo <i class="fas fa-arrow-circle-up"></i></a><small id="small-diselect-all"></small>
+                {{ context.form.tt_productos_devueltos }}
+                <small class="form-text text-muted"></small>
+
+                {{ render_errors(context.form.tt_productos_devueltos) }}
+            </div>
+            {{ render_field(context.form.estado) }}
+            {{ render_errors(context.form.estado) }}
+            {{ render_field(context.form.estado_cierre) }}
+            {{ render_errors(context.form.estado_cierre) }}
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-success"> Guardar</button>
+        </div>
+    </form>
+
+    <script>
+        {% if context.form.errors %}
+            {% for field in context.form.errors %}
+                $("#{{ field }}").addClass('is-invalid')
+            {% endfor %}
+        {% endif %}
+        function agregar_productos(select_productos, select_productos_devueltos) {
+            let select_actual = []
+            let fragment = document.createDocumentFragment()
+            let select_tt_productos = Array.from($('select[name="tt_productos"] option'))
+            for (let item of select_tt_productos) {
+                select_actual.push({
+                    id: item.value,
+                    value: item.text
+                });
+            }
+
+            for (let item of select_actual) {
+                console.log(item)
+                let option = document.createElement('option')
+                option.value = item.id
+                option.text = item.value
+                fragment.appendChild(option)
+            }
+            for (let item of select_actual) {
+                $('select[name="tt_productos"] option').filter(function () {
+                    select_actual.push({
+                        id: item.value,
+                        value: item.text
+                    });
+                    return $.trim($(this).text()) == item.value
+                }).remove();
+            }
+            select_productos_devueltos.append(fragment)
+            {#$('#small-diselect-all').empty()#}
+            {#$('#small-select-all').html('<small style="font-size: 15px;color: #1f2626"> ' + select_productos.length + '</small>')#}
+        }
+
+        function eliminar_productos(select_productos, select_productos_dev) {
+            let select_actual = []
+            let fragment = document.createDocumentFragment()
+            let select_productos_devueltos = Array.from($('select[name="tt_productos_devueltos"] option'))
+            for (let item of select_productos_devueltos) {
+                select_actual.push({
+                    id: item.value,
+                    value: item.text
+                });
+
+            }
+
+            for (let item of select_actual) {
+                console.log(item)
+                let option = document.createElement('option')
+                option.value = item.id
+                option.text = item.value
+                fragment.appendChild(option)
+            }
+            for (let item of select_actual) {
+                $('select[name="tt_productos_devueltos"] option').filter(function () {
+                    select_actual.push({
+                        id: item.value,
+                        value: item.text
+                    });
+                    return $.trim($(this).text()) == item.value
+                }).remove();
+            }
+            select_productos.append(fragment)
+            {#$('#small-diselect-all').html('<small style="font-size: 15px;color: #1f2626"> ' + select_productos_devueltos.length + '</small>')#}
+            {#$('#small-select-all').empty()#}
+
+
+        }
+
+        let select_productos = $('select[name="tt_productos"]')
+        let select_productos_devueltos = $('select[name="tt_productos_devueltos"]')
+        let btn_agregar = $('.btn-agregar')
+        let btn_eliminar = $('.btn-eliminar')
+        let select_actual = []
+        select_productos.children(':selected').each((idx, el) => {
+            select_actual.push({
+                id: el.value,
+                value: el.text
+            });
+
+        });
+        select_productos.on('change', function () {
+            let select_actual = []
+            select_productos.children(':selected').each((idx, el) => {
+                select_actual.push({
+                    id: el.value,
+                    value: el.text
+                });
+
+                {#$('#small-select-all').html('<small style="font-size: 15px;color: #1f2626"> ' + select_actual.length + '</small>')#}
+
+            });
+            if (select_productos.children(':selected').length === 0) {
+                {#$('#small-select-all').html('<small style="font-size: 15px;color: #1f2626"> ' + 0 + '</small>')#}
+            }
+
+        })
+        select_productos_devueltos.on('change', function () {
+            let select_actual = []
+            select_productos_devueltos.children(':selected').each((idx, el) => {
+                select_actual.push({
+                    id: el.value,
+                    value: el.text
+                });
+                {#$('#small-diselect-all').html('<small style="font-size: 15px;color: #1f2626"> ' + select_actual.length + '</small>')#}
+            });
+            if (select_productos_devueltos.children(':selected').length === 0) {
+                {#$('#small-diselect-all').html('<small style="font-size: 15px;color: #1f2626"> ' + 0 + '</small>')#}
+            }
+
+        })
+        let fragment = document.createDocumentFragment()
+        for (let item of select_actual) {
+            let option = document.createElement('option')
+            option.value = item.id
+            option.text = item.value
+            fragment.appendChild(option)
+        }
+        for (let item of select_actual) {
+            $('select[name="tt_productos"] option').filter(function () {
+                return $.trim($(this).text()) == item.value
+            }).remove();
+        }
+        // select_productos_devueltos.empty()
+        select_productos_devueltos.append(fragment)
+        btn_agregar.on('click', function () {
+            let selecteds = [];
+            select_productos.children(':selected').each((idx, el) => {
+                selecteds.push({
+                    id: el.value,
+                    value: el.text
+                });
+
+            });
+            let fragment = document.createDocumentFragment()
+            for (let item of selecteds) {
+                let option = document.createElement('option')
+                option.value = item.id
+                option.text = item.value
+                option.selected = true
+                fragment.appendChild(option)
+            }
+            for (let item of selecteds) {
+                $('select[name="tt_productos"] option').filter(function () {
+                    return $.trim($(this).text()) == item.value
+                }).remove();
+            }
+            // select_productos_devueltos.empty()
+            select_productos_devueltos.append(fragment)
+        })
+
+        select_productos.on('change', () => {
+            let selecteds = [];
+            // let selecteds = [];
+            select_productos.children(':selected').each((idx, el) => {
+                // Obtenemos los atributos que necesitamos
+                selecteds.push({
+                    id: el.value,
+                    value: el.text
+                });
+            });
+            //
+
+        })
+        btn_eliminar.on('click', function () {
+            let selecteds = [];
+            select_productos_devueltos.children(':selected').each((idx, el) => {
+                selecteds.push({
+                    id: el.value,
+                    value: el.text
+                });
+
+            });
+            let fragment = document.createDocumentFragment()
+            for (let item of selecteds) {
+                let option = document.createElement('option')
+                option.value = item.id
+                option.text = item.value
+                fragment.appendChild(option)
+            }
+            for (let item of selecteds) {
+                $('select[name="tt_productos_devueltos"] option').filter(function () {
+                    return $.trim($(this).text()) == item.value
+                }).remove();
+            }
+            select_productos.append(fragment)
+            let select_new = Array.from($('select[name="tt_productos_devueltos"] option'))
+            for (let item of select_new) {
+                console.log("item", item)
+                item.selected = true
+
+            }
+        })
+        $('.text-select-all').on('click', function () {
+            agregar_productos(select_productos, select_productos_devueltos)
+
+        })
+        $('.text-diselect-all').on('click', function () {
+            eliminar_productos(select_productos, select_productos_devueltos)
+        })
+
+        let productos_devueltos = Array.from($('select[name="tt_productos_devueltos"] option'))
+        let option = []
+        for (const optionElement of productos_devueltos) {
+            optionElement.selected = true
+        }
+    </script>
+{% endblock %}
+{% block javascript %}
+{% endblock %}

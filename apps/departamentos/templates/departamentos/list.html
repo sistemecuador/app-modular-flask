@@ -1,0 +1,34 @@
+{% extends 'list_base.html' %}
+
+{% block columns %}
+    <tr>
+        <th>Opciones</th>
+        <th>Departamento</th>
+        <th>Observacion</th>
+        <th>Estado</th>
+    </tr>
+{% endblock %}
+
+{% block rows %}
+
+    {% for departamento in context.departamentos %}
+        <tr>
+            <td>
+                <a href="{{ url_for("departamentos.edit_departamentos",pk=departamento.id) }}"
+                   class="btn btn-sm btn-default"><i
+                        style="color: #334a4b" class="fas fa-edit"></i></a>
+                <a href="{{ url_for("departamentos.delete_departamentos",pk=departamento.id) }}"
+                   class="btn btn-sm btn-default"><i
+                        style="color: red" class="fas fa-trash-alt"></i></a>
+            </td>
+            <td>{{ departamento.nombre_departamento }}</td>
+            <td>{{ departamento.observacion }}</td>
+            <td>{{ departamento.estado }}</td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+
+{% block card_footer %}
+    <a href="" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Agregar</a>
+    <a href="" class="btn btn-success"><i class="fas fa-sync-alt"></i> Actualizar</a>
+{% endblock %}

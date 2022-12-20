@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+
+{% block content_body %}
+    <div class="card card-dark">
+        <div class="card-header">
+            <h3 class="card-title"> {{ context.title_card }}</h3>
+        </div>
+        <form action="" method="POST">
+            <input name="action" type="hidden" value="delete">
+            <div class="card-body">
+                <div class="alert alert-danger alert-dismissible">
+                    <h5><i class="icon fas fa-ban"></i> Esta segurio que desea eliminar este registro</h5>
+                    {{ context.message }}
+                </div>
+                <div class="card-footer secondary">
+                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i>
+                        Eliminar
+                    </button>
+                    <a href="{{ url_for('estados.list_estados') }}" class="btn btn-primary"><i class="fas fa-times"></i>
+                        Cancelar</a>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

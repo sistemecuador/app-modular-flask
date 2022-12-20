@@ -1,0 +1,44 @@
+{% extends 'list_base.html' %}
+
+{% block columns %}
+    <tr>
+        <th>Opciones</th>
+        <th>Categoria</th>
+        <th>Descripción</th>
+        <th>Imagen</th>
+        <th>Activo</th>
+    </tr>
+{% endblock %}
+
+{% block rows %}
+
+    {% for categoria in context.categorias %}
+        <tr>
+            <td>
+                <a href="{{ url_for('categorias.edit_categorias',pk=categoria.id) }}" class="btn btn-sm btn-default"><i
+                        style="color: #334a4b" class="fas fa-edit"></i></a>
+                <a href="{{ url_for('categorias.delete_categorias',pk=categoria.id) }}"
+                   class="btn btn-sm btn-default"><i
+                        style="color: red" class="fas fa-trash-alt"></i></a>
+            </td>
+            <td>{{ categoria.nombre_categoria }}</td>
+            <td>{{ categoria.descripcion }}</td>
+            <td>
+                <div class="img-fluid mb-3">
+                    <a type="button">
+                        <img width="50px" height="50px"
+                             src="{{ url_for('inventario.uploads',
+                                 sub_directorio='categorias',
+                                 filename=categoria.image) }}" alt="image">
+                    </a>
+                </div>
+            </td>
+            <td>{{ categoria.activo }}</td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+
+{% block card_footer %}
+    <a href="{{ add_categorias }}" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Agregar</a>
+    <a href="" class="btn btn-success"><i class="fas fa-sync-alt"></i> Actualizar</a>
+{% endblock %}

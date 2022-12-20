@@ -1,0 +1,39 @@
+{% extends 'list_base.html' %}
+
+{% block columns %}
+    <tr>
+        <th>Opciones</th>
+        <th>Nombre</th>
+        <th>Identificador</th>
+        <th>Contacto</th>
+        <th>Correo</th>
+        <th>Departamento</th>
+        <th>Estado</th>
+    </tr>
+{% endblock %}
+
+{% block rows %}
+
+    {% for persona in context.personal %}
+        <tr>
+            <td>
+                <a href="{{ url_for('personal.edit_personal',pk=persona.id) }}" class="btn btn-sm btn-default"><i
+                        style="color: #334a4b" class="fas fa-edit"></i></a>
+                <a href="{{ url_for('personal.delete_personal',pk=persona.id) }}"
+                   class="btn btn-sm btn-default"><i
+                        style="color: red" class="fas fa-trash-alt"></i></a>
+            </td>
+            <td>{{ persona.nombre_completo }}</td>
+            <td>{{ persona.identificador }}</td>
+            <td>{{ persona.contacto }}</td>
+            <td>{{ persona.correo }}</td>
+            <td>{{ persona.departamentos_personal.nombre_departamento }}</td>
+            <td>{{ persona.estado }}</td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+
+{% block card_footer %}
+    <a href="{{ add_categorias }}" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Agregar</a>
+    <a href="" class="btn btn-success"><i class="fas fa-sync-alt"></i> Actualizar</a>
+{% endblock %}

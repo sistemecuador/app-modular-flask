@@ -1,0 +1,30 @@
+{% extends 'list_base.html' %}
+
+{% block columns %}
+    <tr>
+        <th>Opciones</th>
+        <th>Nombre producto</th>
+        <th>Estado</th>
+    </tr>
+{% endblock %}
+
+{% block rows %}
+
+    {% for estado in context.estados %}
+        <tr>
+            <td>
+                <a href="{{ url_for('estados.edit_estados',pk=estado.id) }}" class="btn btn-sm btn-default"><i
+                        style="color: #334a4b" class="fas fa-edit"></i></a>
+                <a href="{{ url_for('estados.delete_estados',pk=estado.id) }}" class="btn btn-sm btn-default"><i
+                        style="color: red" class="fas fa-trash-alt"></i></a>
+            </td>
+            <td>{{ estado.nombre_estado }}</td>
+            <td>{{ estado.activo }}</td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+
+{% block card_footer %}
+    <a href="{{ add_registro }}" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Agregar</a>
+    <a href="" class="btn btn-success"><i class="fas fa-sync-alt"></i> Actualizar</a>
+{% endblock %}
