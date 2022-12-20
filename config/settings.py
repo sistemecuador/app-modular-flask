@@ -4,7 +4,7 @@ from config.constantes import UPLOAD_FOLDER
 class Config(object):
     # SERVER_NAME = '0.0.0.0:5000'
     DEBUG = True
-    SECRET_KEY = 'kjasgsjgsjdgjsdkkjsdjhgsdhgdsjbh'
+    SECRET_KEY = 'kjasgsjgsjdgjsdkkjsdjhgsdhgdsjjkhi72672jd;lbh'
     UPLOAD_FOLDER = UPLOAD_FOLDER
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     FLASK_APP = 'apps.py'
