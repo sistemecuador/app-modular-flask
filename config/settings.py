@@ -21,7 +21,7 @@ class Config(object):
 class ProductionConfig(Config):
     DEBUG = False
     DATABASE_URI = 'mysql://user@localhost/foo'
-    SERVER_NAME = '172.18.55.6'
+    #SERVER_NAME = '172.18.55.6'
     SQLALCHEMY_DATABASE_URI = f'mysql://root:Nomeacuerdo123.@localhost:3306/flask_production'
 
 
