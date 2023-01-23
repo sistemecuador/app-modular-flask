@@ -60,4 +60,4 @@ jobs:
         with:
           app-name: 'isaacbrijuan'
           slot-name: 'production'
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_0441f0a19bbf4aa38b45038232ff2b8c }}
+          publish-profile: ${{ secrets.AzureAppService_PublishProfile_165d2630358b46de97e2b7b42183a2af }}
