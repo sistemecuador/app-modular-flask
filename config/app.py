@@ -11,7 +11,7 @@ def page_not_found(e):
 
 def create_app():
     app = Flask(__name__, template_folder=BASE_TEMPLATE_ROOT, static_folder=BASE_STATIC_ROOT)
-    app.config.from_object(config['development'])
+    app.config.from_object(config['production'])
     # csrf = CSRFProtect()
     # csrf.init_app(app)
     db.init_app(app)
