@@ -22,20 +22,23 @@ class ProductionConfig(Config):
     DEBUG = False
     #DATABASE_URI = 'mysql://user@localhost/foo'
     #SERVER_NAME = '172.18.55.6'
-    SQLALCHEMY_DATABASE_URI = f'postgresql://postgres:Nomeacuerdo123.@ins-db-flask.cmbbdayqxe6k.us-east-1.rds.amazonaws.com:5432/inventario'
+    SQLALCHEMY_DATABASE_URI = f'postgresql://postgres:Nomeacuerdo123.@localhost:5432/flask'
+    #SQLALCHEMY_DATABASE_URI = f'postgresql://postgres:Nomeacuerdo123.@ins-db-flask.cmbbdayqxe6k.us-east-1.rds.amazonaws.com:5432/inventario'
 
 
 class DevelopmentConfig(Config):
     # SERVER_NAME = 'localhost:3000'
     # SQLALCHEMY_DATABASE_URI = f'mysql://root:Nomeacuerdo123.@localhost:3306/flask'
-    SQLALCHEMY_DATABASE_URI = f'postgresql://postgres:Nomeacuerdo123.@ins-db-flask.cmbbdayqxe6k.us-east-1.rds.amazonaws.com:5432/inventario'
+    SQLALCHEMY_DATABASE_URI = f'postgresql://postgres:Nomeacuerdo123.@localhost:5432/flask'
+    #SQLALCHEMY_DATABASE_URI = f'postgresql://postgres:Nomeacuerdo123.@ins-db-flask.cmbbdayqxe6k.us-east-1.rds.amazonaws.com:5432/inventario'
     # SQLALCHEMY_DATABASE_URI = f'sqlite:///{BASE_DIR_P}/apps.db'
 
 
 class TestingConfig(Config):
     DATABASE_URI = 'mysql://user@localhost/foo'
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = f'postgresql://postgres:Nomeacuerdo123.@ins-db-flask.cmbbdayqxe6k.us-east-1.rds.amazonaws.com:5432/inventario'
+    SQLALCHEMY_DATABASE_URI = f'postgresql://postgres:Nomeacuerdo123.@localhost:5432/flask'
+    #SQLALCHEMY_DATABASE_URI = f'postgresql://postgres:Nomeacuerdo123.@ins-db-flask.cmbbdayqxe6k.us-east-1.rds.amazonaws.com:5432/inventario'
 
 
 config = {
