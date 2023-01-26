@@ -7,7 +7,7 @@ class Config(object):
     SECRET_KEY = 'kjasgsjgsjdgjsdkkjsdjhgsdhgdsjjkhi72672jd;lbh'
     UPLOAD_FOLDER = UPLOAD_FOLDER
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    FLASK_APP = 'apps.py'
+    FLASK_APP = 'app.py'
     MAIL_SERVER = 'smtp.gmail.com'
     MAIL_PORT = 587
     MAIL_USE_SSL = False
