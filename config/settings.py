@@ -13,7 +13,7 @@ class Config(object):
     MAIL_USE_SSL = False
     MAIL_USE_TLS = True
     MAIL_USERNAME = 'isaacbo841@gmail.com'
-    MAIL_PASSWORD = 'iqachedryqdpuesl'
+    MAIL_PASSWORD = 'lkwxuyzcvsfrrifl'
     DONT_REPLY_FROM_EMAIL = '(Isaac, isaacbo841@gmail.com)'
     ADMINS = ('isaacbo841@gmail.com',)
 
