@@ -24,4 +24,3 @@ python-socketio==5.7.2
 SQLAlchemy==1.4.44
 Werkzeug==2.2.2
 WTForms==3.0.1
-MySQLdb
